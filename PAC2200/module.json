@@ -1,0 +1,11 @@
+{
+    "id": "{F515047B-5B82-4F05-9FD9-B1CA47B1257C}",
+    "name": "PAC2200",
+    "type": 3,
+    "vendor": "Siemens",
+    "aliases": ["PAC2200"],
+    "parentRequirements": ["{E310B701-4AE7-458E-B618-EC13A1A6F6A8}"],
+    "childRequirements": [],
+    "implemented": ["{77B31ABB-18FA-4B91-BB63-E5B2AB5588F4}"],
+    "prefix": "PAC2200"
+}
