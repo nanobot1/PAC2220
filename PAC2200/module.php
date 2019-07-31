@@ -42,8 +42,8 @@ class PAC2200 extends IPSModule
         ['Current L1', VARIABLETYPE_FLOAT, 'Ampere', 13, 3, 2, true],
         ['Current L2', VARIABLETYPE_FLOAT, 'Ampere', 15, 3, 2, true],
         ['Current L3', VARIABLETYPE_FLOAT, 'Ampere', 17, 3, 2, true],
-        ['Active work reference tariff 1', VARIABLETYPE_FLOAT, 'myKWH', 801, 3, 2, true],
-        ['Active work reference tariff 2', VARIABLETYPE_FLOAT, 'myKWH', 805, 3, 2, true]
+        ['Active work reference tariff 1', VARIABLETYPE_FLOAT, 'Electricity.I', 801, 3, 2, true],
+        ['Active work reference tariff 2', VARIABLETYPE_FLOAT, 'Electricity.I', 805, 3, 2, true]
     ];
 
     public function __construct($InstanceID)
@@ -97,7 +97,7 @@ class PAC2200 extends IPSModule
         $this->RegisterProfileInteger('VaR.I', '', '', ' VAr', 0, 0, 0);
         $this->RegisterProfileInteger('VA.I', '', '', ' VA', 0, 0, 0);
         $this->RegisterProfileInteger('Electricity.I', '', '', ' kWh', 0, 0, 0);
-        $this->RegisterProfileInteger('myKWH', 'Lightning', '', ' kWh', 0, 0, 0);
+        //$this->RegisterProfileInteger('myKWH', 'Lightning', '', ' kWh', 0, 0, 0);
 
         $archiveID = IPS_GetInstanceIDByName('Archive', 0);
 
