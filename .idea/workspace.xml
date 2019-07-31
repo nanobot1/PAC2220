@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7d0fe39-becf-4980-a81b-c91710929631" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PAC2200/module.php" beforeDir="false" afterPath="$PROJECT_DIR$/PAC2200/module.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library.json" beforeDir="false" afterPath="$PROJECT_DIR$/library.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,8 +76,16 @@
       <workItem from="1562249088728" duration="54000" />
       <workItem from="1562249167928" duration="1555000" />
       <workItem from="1562569651476" duration="599000" />
-      <workItem from="1564468658777" duration="42101000" />
+      <workItem from="1564468658777" duration="43875000" />
     </task>
+    <task id="LOCAL-00001" summary="Profile myKWH deleted">
+      <created>1564571685163</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1564571685163</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,5 +101,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Profile myKWH deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="Profile myKWH deleted" />
   </component>
 </project>
