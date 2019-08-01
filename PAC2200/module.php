@@ -171,13 +171,29 @@ class PAC2200 extends IPSModule
             }
             $ReadValue = substr($ReadData, 2);
             $this->SendDebug($Variable['Name'] . ' RAW', $ReadValue, 1);
+
+
+
             if (static::Swap) {
                 $ReadValue = strrev($ReadValue);
             }
+
+
+
             $Value = $this->ConvertValue($Variable, $ReadValue);
+
+
+
             if ($Value === null) {
                 $this->LogMessage(sprintf($this->Translate('Combination of type and size of value (%s) not supported.'), $Variable['Name']), KL_ERROR);
                 continue;
+            }
+
+            if($Variable['Quantity'] == 4){
+
+                $Value = (floatval($Value)/1000);
+                print_r($Value);
+                print_r($Variable);
             }
             $this->SendDebug($Variable['Name'], $Value, 0);
             $this->SetValueExt($Variable, $Value);
@@ -214,6 +230,7 @@ class PAC2200 extends IPSModule
             case VARIABLETYPE_FLOAT:
                 switch ($Variable['Quantity']) {
                     case 4:
+                        return unpack('d',$Value)[1];
                     case 8:
                     case 2:
                         return unpack('f', $Value)[1];
