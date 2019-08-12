@@ -11,28 +11,28 @@ class PAC2200 extends IPSModule
         ['Frequency', VARIABLETYPE_FLOAT, 'Hertz.50', 55, 3, 2, true],
         ['Reactive power average reference', VARIABLETYPE_FLOAT, 'VaR', 503, 3, 2, true],
         ['Reactive power average delivery', VARIABLETYPE_FLOAT, 'VaR', 507, 3, 2, true],
-        ['Active power average reference', VARIABLETYPE_FLOAT, 'Watt.14490', 501, 3, 2, true],
-        ['Active power average delivery', VARIABLETYPE_FLOAT, 'Watt.14490', 505, 3, 2, true],
+        ['Active power average reference', VARIABLETYPE_FLOAT, 'PAC22200.KW', 501, 3, 2, true],
+        ['Active power average delivery', VARIABLETYPE_FLOAT, 'PAC22200.KW', 505, 3, 2, true],
         ['Reactive power L1', VARIABLETYPE_FLOAT, 'VaR', 31, 3, 2, true],
         ['Reactive power L2', VARIABLETYPE_FLOAT, 'VaR', 33, 3, 2, true],
         ['Reactive power L3', VARIABLETYPE_FLOAT, 'VaR', 35, 3, 2, true],
         ['apparent power L1', VARIABLETYPE_FLOAT, 'VA', 19, 3, 2, true],
         ['apparent power L2', VARIABLETYPE_FLOAT, 'VA', 21, 3, 2, true],
         ['apparent power L3', VARIABLETYPE_FLOAT, 'VA', 23, 3, 2, true],
-        ['active power L1', VARIABLETYPE_FLOAT, 'Watt.14490', 25, 3, 2, true],
-        ['active power L2', VARIABLETYPE_FLOAT, 'Watt.14490', 27, 3, 2, true],
-        ['active power L3', VARIABLETYPE_FLOAT, 'Watt.14490', 29, 3, 2, true],
+        ['active power L1', VARIABLETYPE_FLOAT, 'PAC22200.KW', 25, 3, 2, true],
+        ['active power L2', VARIABLETYPE_FLOAT, 'PAC22200.KW', 27, 3, 2, true],
+        ['active power L3', VARIABLETYPE_FLOAT, 'PAC22200.KW', 29, 3, 2, true],
         ['Total power factor', VARIABLETYPE_FLOAT, '', 69, 3, 2, true],
         ['Power factor L1', VARIABLETYPE_FLOAT, '', 37, 3, 2, true],
         ['Power factor L2', VARIABLETYPE_FLOAT, '', 39, 3, 2, true],
         ['Power factor L3', VARIABLETYPE_FLOAT, '', 41, 3, 2, true],
         ['Total reactive power', VARIABLETYPE_FLOAT, 'VaR', 67, 3, 2, true],
         ['Total apparent power', VARIABLETYPE_FLOAT, 'VA', 63, 3, 2, true],
-        ['Total active power', VARIABLETYPE_FLOAT, 'Watt.14490', 65, 3, 2, true],
+        ['Total active power', VARIABLETYPE_FLOAT, 'PAC22200.KW', 65, 3, 2, true],
         ['Max reactive power', VARIABLETYPE_FLOAT, 'VaR', 513, 3, 2, true],
         ['Min reactive power', VARIABLETYPE_FLOAT, 'VaR', 515, 3, 2, true],
-        ['Min active power', VARIABLETYPE_FLOAT, 'Watt.14490', 511, 3, 2, true],
-        ['Max active power', VARIABLETYPE_FLOAT, 'Watt.14490', 509, 3, 2, true],
+        ['Min active power', VARIABLETYPE_FLOAT, 'PAC22200.KW', 511, 3, 2, true],
+        ['Max active power', VARIABLETYPE_FLOAT, 'PAC22200.KW', 509, 3, 2, true],
         ['Voltage L1 L2', VARIABLETYPE_FLOAT, 'Volt.230', 7, 3, 2, true],
         ['Voltage L1 L3', VARIABLETYPE_FLOAT, 'Volt.230', 9, 3, 2, true],
         ['Voltage L3 L1', VARIABLETYPE_FLOAT, 'Volt.230', 11, 3, 2, true],
@@ -98,6 +98,7 @@ class PAC2200 extends IPSModule
         $this->RegisterProfileInteger('VA.I', '', '', ' VA', 0, 0, 0);
         $this->RegisterProfileInteger('Electricity.I', '', '', ' kWh', 0, 0, 0);
         $this->RegisterProfileFloat('PAC22200.myKWH', 'Lightning', '', ' kWh', 0, 0, 0,2);
+        $this->RegisterProfileFloat('PAC22200.KW', 'Electricity', '', ' kW', 0, 0, 0,2);
 
         $archiveID = IPS_GetInstanceIDByName('Archive', 0);
 
@@ -189,11 +190,8 @@ class PAC2200 extends IPSModule
                 continue;
             }
 
-            if($Variable['Quantity'] == 4){
-
+            if($Variable['Quantity'] == 4 || $Variable['Profile'] == 'PAC22200.KW' ) {
                 $Value = (floatval($Value)/1000);
-                print_r($Value);
-                print_r($Variable);
             }
             $this->SendDebug($Variable['Name'], $Value, 0);
             $this->SetValueExt($Variable, $Value);
