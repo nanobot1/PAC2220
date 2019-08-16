@@ -98,8 +98,8 @@ class PAC2200 extends IPSModule
         $this->RegisterProfileInteger('VaR.I', '', '', ' VAr', 0, 0, 0);
         $this->RegisterProfileInteger('VA.I', '', '', ' VA', 0, 0, 0);
         $this->RegisterProfileInteger('Electricity.I', '', '', ' kWh', 0, 0, 0);
-        $this->RegisterProfileFloat('PAC22200.myKWH', 'Lightning', '', ' kWh', 0, 0, 0,2);
-        $this->RegisterProfileFloat('PAC22200.KW', 'Electricity', '', ' kW', 0, 0, 0,2);
+        $this->RegisterProfileFloat('PAC22200.myKWH', 'Lightning', '', ' kWh', 0, 0, 0, 2);
+        $this->RegisterProfileFloat('PAC22200.KW', 'Electricity', '', ' kW', 0, 0, 0, 2);
 
         $archiveID = IPS_GetInstanceIDByName('Archive', 0);
 
@@ -117,7 +117,7 @@ class PAC2200 extends IPSModule
         if ($this->ReadPropertyBoolean('Active') == false) {
             IPS_SetHidden($this->InstanceID, true);
         }
-        else{
+        else {
             IPS_SetHidden($this->InstanceID, false);
         }
     }
@@ -130,21 +130,24 @@ class PAC2200 extends IPSModule
      */
     public function RequestRead()
     {
-        $Gateway = IPS_GetInstance($this->InstanceID)['ConnectionID'];
-        if ($Gateway == 0) {
-            return false;
+        if ($this->ReadPropertyBoolean('Active') != false) {
+            $Gateway = IPS_GetInstance($this->InstanceID)['ConnectionID'];
+            if ($Gateway == 0) {
+                return false;
+            }
+            $IO = IPS_GetInstance($Gateway)['ConnectionID'];
+            if ($IO == 0) {
+                return false;
+            }
+            if (!$this->lock($IO)) {
+                return false;
+            }
+            $Result = $this->ReadData();
+            IPS_Sleep(333);
+            $this->unlock($IO);
+            return $Result;
         }
-        $IO = IPS_GetInstance($Gateway)['ConnectionID'];
-        if ($IO == 0) {
-            return false;
-        }
-        if (!$this->lock($IO)) {
-            return false;
-        }
-        $Result = $this->ReadData();
-        IPS_Sleep(333);
-        $this->unlock($IO);
-        return $Result;
+        return false;
 
     }
 
@@ -181,15 +184,12 @@ class PAC2200 extends IPSModule
             $this->SendDebug($Variable['Name'] . ' RAW', $ReadValue, 1);
 
 
-
             if (static::Swap) {
                 $ReadValue = strrev($ReadValue);
             }
 
 
-
             $Value = $this->ConvertValue($Variable, $ReadValue);
-
 
 
             if ($Value === null) {
@@ -197,8 +197,8 @@ class PAC2200 extends IPSModule
                 continue;
             }
 
-            if($Variable['Quantity'] == 4 || $Variable['Profile'] == 'PAC22200.KW' ) {
-                $Value = (floatval($Value)/1000);
+            if ($Variable['Quantity'] == 4 || $Variable['Profile'] == 'PAC22200.KW') {
+                $Value = (floatval($Value) / 1000);
             }
             $this->SendDebug($Variable['Name'], $Value, 0);
             $this->SetValueExt($Variable, $Value);
@@ -235,7 +235,7 @@ class PAC2200 extends IPSModule
             case VARIABLETYPE_FLOAT:
                 switch ($Variable['Quantity']) {
                     case 4:
-                        return unpack('d',$Value)[1];
+                        return unpack('d', $Value)[1];
                     case 8:
                     case 2:
                         return unpack('f', $Value)[1];
