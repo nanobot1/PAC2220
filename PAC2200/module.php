@@ -114,7 +114,7 @@ class PAC2200 extends IPSModule
         else {
             $this->SetTimerInterval('UpdateTimer', 0);
         }
-        if ($this->ReadPropertyInteger('Active') == false) {
+        if ($this->ReadPropertyBoolean('Active') == false) {
             IPS_SetHidden($this->InstanceID, true);
         }
         else{
