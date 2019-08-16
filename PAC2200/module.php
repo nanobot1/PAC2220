@@ -60,6 +60,7 @@ class PAC2200 extends IPSModule
 
         $this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}"); //ModBus Gateway
         $this->RegisterPropertyInteger('Interval', 0);
+        $this->RegisterPropertyBoolean('Active', true);
         $Variables = [];
         foreach (static::$Variables as $Pos => $Variable) {
             $Variables[] = [
@@ -112,6 +113,12 @@ class PAC2200 extends IPSModule
         }
         else {
             $this->SetTimerInterval('UpdateTimer', 0);
+        }
+        if ($this->ReadPropertyInteger('Active') == false) {
+            IPS_SetHidden($this->InstanceID, true);
+        }
+        else{
+            IPS_SetHidden($this->InstanceID, false);
         }
     }
 
