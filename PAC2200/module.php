@@ -101,7 +101,7 @@ class PAC2200 extends IPSModule
         $this->RegisterProfileFloat('PAC22200.myKWH', 'Lightning', '', ' kWh', 0, 0, 0, 2);
         $this->RegisterProfileFloat('PAC22200.KW', 'Electricity', '', ' kW', 0, 0, 0, 2);
 
-        $archiveID = IPS_GetInstanceIDByName('Archive', 0);
+        $archiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
 
         $Variables = json_decode($this->ReadPropertyString('Variables'), true);
         foreach ($Variables as $Variable) {
